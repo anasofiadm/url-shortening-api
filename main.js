@@ -2,7 +2,7 @@ document.getElementById('shortenForm').addEventListener('submit', function(event
   event.preventDefault(); // Prevent the form from submitting the traditional way
   
   var url = document.getElementById('urlInput').value;
-  var corsProxy = 'https://cors-anywhere.herokuapp.com/';
+  var corsProxy = 'https://cors-anywhere.herokuapp.com/corsdemo';
   var apiUrl = corsProxy + 'https://cleanuri.com/api/v1/shorten';
 
   // Validate URL
