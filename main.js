@@ -1,6 +1,5 @@
-document.getElementById('shortenForm').addEventListener('submit', function(event) {
-  event.preventDefault(); // Prevent default form submission
 
+document.getElementById('shortenBtn').addEventListener('click', function() {
   var url = document.getElementById('urlInput').value;
   var apiUrl = 'https://cleanuri.com/api/v1/shorten';
 
