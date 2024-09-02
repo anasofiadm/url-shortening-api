@@ -1,5 +1,6 @@
-
-document.getElementById('shortenBtn').addEventListener('click', function() {
+document.getElementById('shortenForm').addEventListener('submit', function(event) {
+  event.preventDefault(); // Prevent the form from submitting the traditional way
+  
   var url = document.getElementById('urlInput').value;
   var apiUrl = 'https://cleanuri.com/api/v1/shorten';
 
@@ -11,7 +12,7 @@ document.getElementById('shortenBtn').addEventListener('click', function() {
 
   // Prepare the request data
   var formData = new URLSearchParams();
-  formData.append('url', encodeURIComponent(url));
+  formData.append('url', url);
 
   // Make the API call
   fetch(apiUrl, {
@@ -21,10 +22,15 @@ document.getElementById('shortenBtn').addEventListener('click', function() {
       'Content-Type': 'application/x-www-form-urlencoded'
     }
   })
-  .then(response => response.json())
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Network response was not ok.');
+    }
+    return response.json();
+  })
   .then(data => {
+    console.log(data); // Log the response for debugging
     if (data.result_url) {
-      // Show alert with the shortened URL
       alert('Shortened URL: ' + data.result_url);
     } else {
       alert('An error occurred: ' + (data.error || 'Unknown error'));
