@@ -37,3 +37,20 @@ document.addEventListener('DOMContentLoaded', function () {
       });
   });
 });
+
+
+document.getElementById('copyBtn').addEventListener('click', function () {
+  const shortenedLink = document.querySelector('.example-shortened-link').textContent;
+
+  navigator.clipboard.writeText(shortenedLink).then(() => {
+    const copyBtn = document.getElementById('copyBtn');
+    copyBtn.textContent = 'Copied!';
+    copyBtn.classList.add('copied');
+
+    // Reset button text after 2 seconds
+    setTimeout(() => {
+      copyBtn.textContent = 'Copy';
+      copyBtn.classList.remove('copied');
+    }, 2000);
+  });
+});
