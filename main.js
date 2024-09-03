@@ -1,30 +1,29 @@
 document.getElementById('shortenBtn').addEventListener('click', function() {
-  const longUrl = document.getElementById('urlInput').value;
+    const inputUrl = document.getElementById('inputUrl').value;
+    
+    if (inputUrl.trim() === "") {
+        alert("Please enter a valid URL.");
+        return;
+    }
 
-  // Validate that the URL is not empty
-  if (!longUrl) {
-      alert('Please enter a URL to shorten.');
-      return;
-  }
-
-  // Ulvis API endpoint
-  const apiUrl = `https://ulvis.net/API/write/get?url=${encodeURIComponent(longUrl)}&type=json`;
-
-  // Send the GET request to the API
-  fetch(apiUrl)
-      .then(response => response.json()) // Parse the JSON response
-      .then(data => {
-          if (data.success) {
-              // Show the shortened URL in an alert
-              alert(`Shortened URL: ${data.data.url}`);
-          } else {
-              // Handle the case where shortening failed
-              alert(`Error: ${data.error.msg}`);
-          }
-      })
-      .catch(error => {
-          // Handle any errors that occurred during the fetch
-          console.error('Error:', error);
-          alert('An error occurred while shortening the URL.');
-      });
+    // API request to shorten the URL
+    fetch('https://cleanuri.com/api/v1/shorten', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ url: inputUrl }),
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.result_url) {
+            document.getElementById('result').innerText = `Shortened URL: ${data.result_url}`;
+        } else {
+            document.getElementById('result').innerText = "Failed to shorten the URL.";
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        document.getElementById('result').innerText = "An error occurred.";
+    });
 });
