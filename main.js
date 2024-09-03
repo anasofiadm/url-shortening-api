@@ -1,63 +1,30 @@
-document.addEventListener('DOMContentLoaded', function () {
-  const form = document.querySelector('#urlShortenerForm');
-  const input = document.querySelector('#urlInput');
-  const errorMessage = document.querySelector('.invalid-feedback');
-  const resultContainer = document.querySelector('#resultContainer');
-  const shortenedLink = document.querySelector('#shortenedLink');
-  const copyButton = document.querySelector('#copyButton');
+document.getElementById('shortenBtn').addEventListener('click', function() {
+  const longUrl = document.getElementById('urlInput').value;
 
-  form.addEventListener('submit', function (e) {
-      e.preventDefault();
+  // Validate that the URL is not empty
+  if (!longUrl) {
+      alert('Please enter a URL to shorten.');
+      return;
+  }
 
-      const longUrl = input.value.trim();
+  // Ulvis API endpoint
+  const apiUrl = `https://ulvis.net/API/write/get?url=${encodeURIComponent(longUrl)}&type=json`;
 
-      if (!longUrl) {
-          input.classList.add('is-invalid');
-          errorMessage.textContent = 'Please add a link.';
-          return;
-      } else {
-          input.classList.remove('is-invalid');
-          errorMessage.textContent = '';
-      }
-
-      fetch('https://cors-anywhere.herokuapp.com/https://cleanuri.com/api/v1/shorten', {
-          method: 'POST',
-          headers: {
-              'Content-Type': 'application/x-www-form-urlencoded'
-          },
-          body: `url=${encodeURIComponent(longUrl)}`
-      })
-      .then(response => {
-          if (!response.ok) {
-              throw new Error('Network response was not ok');
-          }
-          return response.json();
-      })
+  // Send the GET request to the API
+  fetch(apiUrl)
+      .then(response => response.json()) // Parse the JSON response
       .then(data => {
-          shortenedLink.textContent = data.result_url;
-          shortenedLink.href = data.result_url;
-          resultContainer.classList.remove('d-none');
+          if (data.success) {
+              // Show the shortened URL in an alert
+              alert(`Shortened URL: ${data.data.url}`);
+          } else {
+              // Handle the case where shortening failed
+              alert(`Error: ${data.error.msg}`);
+          }
       })
       .catch(error => {
+          // Handle any errors that occurred during the fetch
           console.error('Error:', error);
-          alert('Failed to shorten URL. Please try again later.');
+          alert('An error occurred while shortening the URL.');
       });
-  });
-
-  copyButton.addEventListener('click', function () {
-      const urlToCopy = shortenedLink.textContent;
-      navigator.clipboard.writeText(urlToCopy).then(() => {
-          copyButton.textContent = 'Copied!';
-          copyButton.classList.add('btn-primary');
-      }).catch(err => {
-          console.error('Could not copy text: ', err);
-      });
-  });
-
-  input.addEventListener('input', function () {
-      if (input.classList.contains('is-invalid')) {
-          input.classList.remove('is-invalid');
-          errorMessage.textContent = '';
-      }
-  });
 });
