@@ -33,19 +33,49 @@
     }
 
     .hero-section {
-      padding-top: 50px;
-      padding-bottom: 100px;
+      padding: 60px 0; /* Adjust vertical padding */
+      background-color: #f8f9fa; /* Optional: background color for better contrast */
     }
 
-    .hero-section h1{
-      font-size: calc(2.375rem + 1.5vw);
-      font-weight: 800;
-      color: hsl(255, 11%, 22%);
+    .hero-section h1 {
+      font-size: 2.5rem; /* Adjust font size */
+      margin-bottom: 20px; /* Spacing below heading */
     }
 
-    .hero-section p{
-      color:hsl(0, 0%, 75%);
+    .hero-section p {
+      font-size: 1.125rem; /* Adjust font size */
+      margin-bottom: 30px; /* Spacing below paragraph */
     }
+
+    .hero-section .btn-signup {
+      background-color: #007bff; /* Button background color */
+      color: white; /* Button text color */
+      border: none;
+      padding: 10px 20px; /* Button padding */
+    }
+
+    .hero-section .btn-signup:hover {
+      background-color: #0056b3; /* Button hover color */
+    }
+
+    .hero-section img {
+      max-width: 100%; /* Ensure the image is responsive */
+      height: auto; /* Maintain aspect ratio */
+    }
+
+    @media (max-width: 767.98px) {
+      .hero-section {
+        padding: 30px 0; /* Reduce padding on smaller screens */
+      }
+
+      .hero-section h1 {
+        font-size: 1.75rem; /* Smaller font size on mobile */
+      }
+
+      .hero-section p {
+        font-size: 1rem; /* Smaller font size on mobile */
+      }
+    }}
 
     .shortener-input {
       background-color:  hsl(255, 11%, 22%);
@@ -202,22 +232,21 @@
     </div>
   </nav>
   
-
-  <!-- Hero Section -->
-  <section class="hero-section">
-    <div class="container mx-5">
-      <div class="row mx-4">
-        <div class="col-md-6">
-          <h1>More than just shorter links</h1>
-          <p>Build your brand’s recognition and get detailed insights on how your links are performing.</p>
-          <a class="btn btn-signup" href="#">Get Started</a>
-        </div>
-        <div class="col-md-6">
-          <img src="./images/illustration-working.svg" alt="Hero Image" class="img-fluid w-100">
-        </div>
+ <!-- Hero Section -->
+ <section class="hero-section">
+  <div class="container">
+    <div class="row gx-4 gy-5 align-items-center">
+      <div class="col-md-6">
+        <h1>More than just shorter links</h1>
+        <p>Build your brand’s recognition and get detailed insights on how your links are performing.</p>
+        <a class="btn btn-signup" href="#">Get Started</a>
+      </div>
+      <div class="col-md-6">
+        <img src="./images/illustration-working.svg" alt="Hero Image" class="img-fluid">
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
 
 <!-- Advanced Statistics -->
