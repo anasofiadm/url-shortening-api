@@ -100,6 +100,7 @@
     .shortener-card {
   position: relative; /* Allows for custom positioning if needed */
   max-width: 800px; /* Adjust width as necessary */
+  min-height: 107px;
   margin: 0 auto; /* Centers the card horizontally */
   top: 50%; /* Centers vertically (adjust as needed) */
   transform: translateY(-100%); /* Adjusts for vertical centering */
@@ -245,7 +246,7 @@
 <section class="stats-section py-5 bg-light">
   <div class="container">
     <!-- URL Shortener Input -->
-    <div class="shortener-card d-flex justify-content-center align-items-center py-4 px-5 shadow-lg rounded mb-5">
+    <div class="shortener-card d-flex justify-content-center align-items-center py-4 px-5 shadow-lg rounded mt-5 mb-5">
       <form class="d-flex w-100">
         <input type="text" class="form-control me-2" id="urlInput" placeholder="Shorten a link here...">
         <button class="btn btn-shorten" id="shortenBtn" type="submit">Shorten It!</button>
