@@ -1,5 +1,5 @@
 document.getElementById('shortenBtn').addEventListener('click', function() {
-    const inputUrl = document.getElementById('inputUrl').value.trim();
+    const inputUrl = document.getElementById('urlInput').value.trim();
     
     if (inputUrl === "") {
         alert("Please enter a valid URL.");
