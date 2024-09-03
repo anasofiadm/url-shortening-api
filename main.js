@@ -1,56 +1,63 @@
 document.addEventListener('DOMContentLoaded', function () {
-  const form = document.querySelector('form');
-  const urlInput = document.getElementById('urlInput');
-  const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
-  const apiUrl = 'https://cleanuri.com/api/v1/shorten';
+  const form = document.querySelector('#urlShortenerForm');
+  const input = document.querySelector('#urlInput');
+  const errorMessage = document.querySelector('.invalid-feedback');
+  const resultContainer = document.querySelector('#resultContainer');
+  const shortenedLink = document.querySelector('#shortenedLink');
+  const copyButton = document.querySelector('#copyButton');
 
-  form.addEventListener('submit', function (event) {
-      event.preventDefault();
+  form.addEventListener('submit', function (e) {
+      e.preventDefault();
 
-      const longUrl = urlInput.value.trim();
+      const longUrl = input.value.trim();
+
       if (!longUrl) {
-          alert('Please enter a URL.');
+          input.classList.add('is-invalid');
+          errorMessage.textContent = 'Please add a link.';
           return;
+      } else {
+          input.classList.remove('is-invalid');
+          errorMessage.textContent = '';
       }
 
-      const encodedUrl = encodeURIComponent(longUrl);
-      const requestBody = `url=${encodedUrl}`;
-
-      fetch(proxyUrl + apiUrl, {
+      fetch('https://cors-anywhere.herokuapp.com/https://cleanuri.com/api/v1/shorten', {
           method: 'POST',
           headers: {
               'Content-Type': 'application/x-www-form-urlencoded'
           },
-          body: requestBody
+          body: `url=${encodeURIComponent(longUrl)}`
       })
-      .then(response => response.json())
-      .then(data => {
-          if (data.result_url) {
-              alert(`Shortened URL: ${data.result_url}`);
-          } else if (data.error) {
-              alert(`Error: ${data.error}`);
+      .then(response => {
+          if (!response.ok) {
+              throw new Error('Network response was not ok');
           }
+          return response.json();
+      })
+      .then(data => {
+          shortenedLink.textContent = data.result_url;
+          shortenedLink.href = data.result_url;
+          resultContainer.classList.remove('d-none');
       })
       .catch(error => {
           console.error('Error:', error);
-          alert('An error occurred while shortening the URL.');
+          alert('Failed to shorten URL. Please try again later.');
       });
   });
-});
 
+  copyButton.addEventListener('click', function () {
+      const urlToCopy = shortenedLink.textContent;
+      navigator.clipboard.writeText(urlToCopy).then(() => {
+          copyButton.textContent = 'Copied!';
+          copyButton.classList.add('btn-primary');
+      }).catch(err => {
+          console.error('Could not copy text: ', err);
+      });
+  });
 
-document.getElementById('copyBtn').addEventListener('click', function () {
-  const shortenedLink = document.querySelector('.example-shortened-link').textContent;
-
-  navigator.clipboard.writeText(shortenedLink).then(() => {
-    const copyBtn = document.getElementById('copyBtn');
-    copyBtn.textContent = 'Copied!';
-    copyBtn.classList.add('copied');
-
-    // Reset button text after 2 seconds
-    setTimeout(() => {
-      copyBtn.textContent = 'Copy';
-      copyBtn.classList.remove('copied');
-    }, 2000);
+  input.addEventListener('input', function () {
+      if (input.classList.contains('is-invalid')) {
+          input.classList.remove('is-invalid');
+          errorMessage.textContent = '';
+      }
   });
 });
