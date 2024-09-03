@@ -204,37 +204,29 @@
 <body>
 
   <!-- Header -->
-  <nav class="navbar navbar-expand-lg navbar-light header align-items-center mx-5 mt-4">
-    <a class="navbar-brand" href="#">
-      <img src="./images/logo.svg" alt="Logo">
-    </a>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container px-4"> <!-- Use container with padding -->
+    <a class="navbar-brand" href="#"><img src="./images/logo.svg" alt="Logo"></a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link" href="#">Features</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Pricing</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Resources</a>
-        </li>
+        <li class="nav-item"><a class="nav-link" href="#">Features</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Pricing</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Resources</a></li>
       </ul>
-      <div class="d-flex flex-column flex-lg-row align-items-center ms-auto">
-        <div class="align-items-center d-flex flex-column flex-lg-row w-100 w-lg-auto">
-          <a class="nav-link" href="#">Login</a>
-          <a class="btn btn-signup ms-lg-3 mt-3 mt-lg-0 w-100 w-lg-auto" href="#">Sign Up</a>
-        </div>
+      <div class="d-flex align-items-center">
+        <a class="nav-link me-3" href="#">Login</a>
+        <a class="btn btn-signup" href="#">Sign Up</a>
       </div>
     </div>
-  </nav>
-  
+  </div>
+</nav>
+
  <!-- Hero Section -->
  <section class="hero-section">
-  <div class="container">
+  <div class="container px-5">
     <div class="row gx-4 gy-5 align-items-center">
       <div class="col-md-6">
         <h1>More than just shorter links</h1>
