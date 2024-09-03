@@ -26,7 +26,11 @@ document.getElementById('shortenBtn').addEventListener('click', function() {
         console.log("API Response:", data); // Debugging API response
 
         if (data.result_url) {
+            // Display the shortened URL in the result div
             document.getElementById('result').innerText = `Shortened URL: ${data.result_url}`;
+            
+            // Show an alert with the shortened URL
+            alert(`Shortened URL: ${data.result_url}`);
         } else {
             document.getElementById('result').innerText = "Failed to shorten the URL.";
         }
