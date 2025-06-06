@@ -16,20 +16,25 @@
 
   <style>
 #hoverResult {
-  position: relative;
+  position: absolute; /* Cambiado de relative a absolute */
   z-index: 999;
+  top: 20px; /* Ajusta según sea necesario */
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: -80px;
 }
 
 .hover-box {
+  background: white; /* Opcional: para que se vea bien sobre otros elementos */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
   width: 100%;
   max-width: 600px;
   text-align: center;
 }
-
     body{
       font-family: "Poppins", sans-serif;
 
