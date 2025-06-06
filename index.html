@@ -166,6 +166,22 @@
   text-decoration: underline;
 }
 
+    #hoverResult {
+  position: relative;
+  z-index: 999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: -80px;
+}
+
+.hover-box {
+  width: 100%;
+  max-width: 600px;
+  text-align: center;
+}
+
+
     .card-steps {
       position: relative;
       margin-bottom: 50px;
@@ -284,6 +300,14 @@
       </form>
     </div>
       <div id="result"></div>
+    <div id="hoverResult" class="d-none">
+  <div class="hover-box shadow-lg rounded p-4 bg-white position-absolute">
+    <p class="mb-2">Aquí está tu enlace acortado:</p>
+    <div id="shortenedLink" class="mb-3 fw-semibold"></div>
+    <button id="newUrlBtn" class="btn btn-outline-primary">Acortar otra URL</button>
+  </div>
+</div>
+
     </section>
        
 
