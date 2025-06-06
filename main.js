@@ -1,9 +1,11 @@
 document.getElementById('shortenBtn').addEventListener('click', function () {
-    console.log('hola')
     const inputUrl = document.getElementById('urlInput').value.trim();
 
-    if (!inputUrl) {
-        alert("Please enter a valid URL.");
+    // Validación básica de URL
+    const urlPattern = /^(https?:\/\/)?([\w\-]+\.)+[\w\-]+(\/[\w\-./?%&=]*)?$/i;
+    if (!inputUrl || !urlPattern.test(inputUrl)) {
+        alert("Please enter a valid URL (must start with http:// or https://).");
+        console.log("Invalid URL provided:", inputUrl);
         return;
     }
 
@@ -12,29 +14,26 @@ document.getElementById('shortenBtn').addEventListener('click', function () {
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-            url: inputUrl
-        }),
+        body: JSON.stringify({ url: inputUrl }),
     })
     .then(response => {
         if (!response.ok) {
-            throw new Error('Network error');
+            throw new Error(`Network response was not ok, status: ${response.status}`);
         }
         return response.json();
     })
     .then(data => {
-        console.log("API Response:", data);
-
         if (data.shortUrl) {
             document.getElementById('result').innerHTML = `
                 Shortened URL: <a href="${data.shortUrl}" target="_blank">${data.shortUrl}</a>
             `;
         } else {
+            console.log("API did not return shortUrl:", data);
             document.getElementById('result').innerText = "Failed to shorten the URL.";
         }
     })
     .catch(error => {
-        console.error("Error:", error);
+        console.error("Fetch error:", error);
         document.getElementById('result').innerText = "An error occurred while shortening the URL.";
     });
 });
