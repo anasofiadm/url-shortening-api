@@ -1,4 +1,5 @@
 document.getElementById('shortenBtn').addEventListener('click', function () {
+    console.log('hola')
     const inputUrl = document.getElementById('urlInput').value.trim();
 
     if (!inputUrl) {
