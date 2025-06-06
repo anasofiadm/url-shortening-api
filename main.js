@@ -1,43 +1,47 @@
- document.getElementById('shortenForm').addEventListener('submit', function (event) {
-      event.preventDefault();
+document.getElementById('shortenForm').addEventListener('submit', function (event) {
+  event.preventDefault(); // Evita que la página se recargue
 
-      const inputUrl = document.getElementById('urlInput').value.trim();
+  const inputUrl = document.getElementById('urlInput').value.trim();
 
-      // Validar URL simple
-      const urlPattern = /^(https?:\/\/)[^\s/$.?#].[^\s]*$/i;
-      if (!urlPattern.test(inputUrl)) {
-        alert("Please enter a valid URL starting with http:// or https://");
-        console.log("Invalid URL:", inputUrl);
-        return;
+  // Validación básica de URL
+  const urlPattern = /^(https?:\/\/)[^\s/$.?#].[^\s]*$/i;
+  if (!urlPattern.test(inputUrl)) {
+    alert("Por favor, ingresá una URL válida que comience con http:// o https://");
+    console.log("URL inválida:", inputUrl);
+    return;
+  }
+
+  // Llamada al proxy (el que desplegaste en Render)
+  fetch('https://url-shortener-proxy.onrender.com/shorten', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ url: inputUrl }),
+  })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`Error de API: ${response.status}`);
       }
-
-      // Llamada a la API de encurtador.dev
-     fetch('https://url-shortener-proxy.onrender.com/shorten', { ... }) {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ url: inputUrl }),
-      })
-      .then(response => {
-        if (!response.ok) {
-          throw new Error(`API error: ${response.status}`);
-        }
-        return response.json();
-      })
-      .then(data => {
-        if (data.urlEncurtada) {
-          console.log("Shortened URL:", data.urlEncurtada); // 👈 Aquí se muestra en consola
-          document.getElementById('result').innerHTML = `
-            Shortened URL: <a href="https://${data.urlEncurtada}" target="_blank">${data.urlEncurtada}</a>
-          `;
-        } else {
-          console.log("Unexpected response:", data);
-          document.getElementById('result').innerText = "Failed to shorten the URL.";
-        }
-      })
-      .catch(error => {
-        console.error("Fetch error:", error);
-        document.getElementById('result').innerText = "An error occurred while shortening the URL.";
-      });
+      return response.json();
+    })
+    .then(data => {
+      if (data.urlEncurtada) {
+        const shortUrl = data.urlEncurtada.startsWith("http")
+          ? data.urlEncurtada
+          : `https://${data.urlEncurtada}`;
+        
+        console.log("Shortened URL:", shortUrl);
+        document.getElementById('result').innerHTML = `
+          <p>Shortened URL: <a href="${shortUrl}" target="_blank">${shortUrl}</a></p>
+        `;
+      } else {
+        console.error("Respuesta inesperada:", data);
+        document.getElementById('result').innerText = "No se pudo acortar el enlace.";
+      }
+    })
+    .catch(error => {
+      console.error("Fetch error:", error);
+      document.getElementById('result').innerText = "Ocurrió un error al acortar la URL.";
     });
+});
