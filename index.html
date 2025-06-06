@@ -15,25 +15,54 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-MTj3V2zA1ZYzPpOfD8iLlQgFb5OPi5ZwPe8CFkZTjq9yWX1W1gFPQOG57gyc1zU+knpZ3YZoDrjr/vwK3Xy8qw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
   <style>
-#hoverResult {
-  position: absolute; /* Cambiado de relative a absolute */
-  z-index: 999;
-  top: 20px; /* Ajusta según sea necesario */
-  left: 50%;
-  transform: translateX(-50%);
+.result-container {
   display: flex;
-  justify-content: center;
-  align-items: center;
+  flex-direction: column;
+  background: white;
+  border-radius: 10px;
+  padding: 15px 20px;
+  margin-top: 20px;
+  font-family: 'Poppins', sans-serif;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.hover-box {
-  background: white; /* Opcional: para que se vea bien sobre otros elementos */
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-  width: 100%;
-  max-width: 600px;
-  text-align: center;
+.original-link {
+  color: #35323e;
+  font-size: 16px;
+  margin-bottom: 10px;
+  word-break: break-word;
+}
+
+.shortened-link {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  border-top: 1px solid #eee;
+  padding-top: 10px;
+}
+
+.shortened-link a {
+  color: #2acfcf;
+  text-decoration: none;
+  font-weight: 600;
+  margin-right: 10px;
+  word-break: break-all;
+}
+
+.copy-btn {
+  background-color: #2acfcf;
+  color: white;
+  border: none;
+  padding: 8px 18px;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.copy-btn:hover {
+  background-color: #9be3e2;
 }
     body{
       font-family: "Poppins", sans-serif;
