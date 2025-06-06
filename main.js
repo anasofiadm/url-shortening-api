@@ -12,7 +12,7 @@
       }
 
       // Llamada a la API de encurtador.dev
-      fetch('https://api.encurtador.dev/encurtamentos', {
+     fetch('https://url-shortener-proxy.onrender.com/shorten', { ... }) {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
