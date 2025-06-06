@@ -15,6 +15,20 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-MTj3V2zA1ZYzPpOfD8iLlQgFb5OPi5ZwPe8CFkZTjq9yWX1W1gFPQOG57gyc1zU+knpZ3YZoDrjr/vwK3Xy8qw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
   <style>
+#hoverResult {
+  position: relative;
+  z-index: 999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: -80px;
+}
+
+.hover-box {
+  width: 100%;
+  max-width: 600px;
+  text-align: center;
+}
 
     body{
       font-family: "Poppins", sans-serif;
@@ -267,7 +281,14 @@
         <button class="btn btn-shorten" id="shortenBtn" type="submit">Shorten It!</button>
       </form>
     </div>
-    <div id="result" class="d-flex justify-content-center mt-4">
+  <div id="hoverResult" class="d-none">
+  <div class="hover-box shadow-lg rounded p-4 bg-white position-absolute">
+    <p class="mb-2">Aquí está tu enlace acortado:</p>
+    <div id="shortenedLink" class="mb-3 fw-semibold"></div>
+    <button id="newUrlBtn" class="btn btn-outline-primary">Acortar otra URL</button>
+  </div>
+</div>
+
       
     </div>
   </div>
@@ -361,6 +382,36 @@
   <script src="./main.js"></script>
   <script src="https://kit.fontawesome.com/yourFontAwesomeKit.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+document.getElementById('shortenForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  const url = document.getElementById('urlInput').value.trim();
+
+  if (!url) {
+    document.getElementById('urlInput').classList.add('is-invalid');
+    return;
+  }
+
+  document.getElementById('urlInput').classList.remove('is-invalid');
+
+  // Simular una URL acortada (reemplaza con tu lógica real)
+  const shortUrl = 'https://short.ly/' + Math.random().toString(36).substring(2, 8);
+
+  // Mostrar el hover con el resultado
+  document.getElementById('hoverResult').classList.remove('d-none');
+  document.getElementById('shortenedLink').innerHTML = `<a href="${shortUrl}" target="_blank">${shortUrl}</a>`;
+
+  // Ocultar formulario mientras se muestra el hover
+  document.getElementById('shortenForm').classList.add('d-none');
+});
+
+document.getElementById('newUrlBtn').addEventListener('click', function() {
+  document.getElementById('hoverResult').classList.add('d-none');
+  document.getElementById('shortenForm').classList.remove('d-none');
+  document.getElementById('urlInput').value = '';
+});
+</script>
+
 </body>
 
 </html>
