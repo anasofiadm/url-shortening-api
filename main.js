@@ -36,6 +36,7 @@ document.getElementById('shortenForm').addEventListener('submit', function(event
             })
             .catch(error => {
                 console.error("Fetch error:", error);
-                document.getElementById('result').innerText = "An error occurred while shortening the URL.";
+            console.log(document.getElementById('result').innerText = "An error occurred while shortening the URL.");
+                //document.getElementById('result').innerText = "An error occurred while shortening the URL.";
             });
         });
