@@ -1,9 +1,8 @@
 document.getElementById('shortenForm').addEventListener('submit', function(event) {
-            event.preventDefault(); // Previene que el formulario recargue la página
+            event.preventDefault();
 
             const inputUrl = document.getElementById('urlInput').value.trim();
 
-            // Validación básica de URL
             const urlPattern = /^(https?:\/\/)?([\w\-]+\.)+[\w\-]+(\/[\w\-./?%&=]*)?$/i;
             if (!inputUrl || !urlPattern.test(inputUrl)) {
                 alert("Please enter a valid URL (must start with http:// or https://).");
@@ -26,6 +25,7 @@ document.getElementById('shortenForm').addEventListener('submit', function(event
             })
             .then(data => {
                 if (data.shortUrl) {
+                    console.log("Shortened URL:", data.shortUrl); // <-- Aquí el console.log
                     document.getElementById('result').innerHTML = `
                         Shortened URL: <a href="${data.shortUrl}" target="_blank">${data.shortUrl}</a>
                     `;
