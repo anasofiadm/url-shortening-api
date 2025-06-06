@@ -1,20 +1,19 @@
-document.getElementById('shortenBtn').addEventListener('click', function() {
+document.getElementById('shortenBtn').addEventListener('click', function () {
     const inputUrl = document.getElementById('urlInput').value.trim();
-    
+
     if (inputUrl === "") {
         alert("Please enter a valid URL.");
         return;
     }
 
-    console.log("Input URL:", inputUrl); // Debugging input URL
+    console.log("Input URL:", inputUrl);
 
-    // API request to shorten the URL
     fetch('https://cleanuri.com/api/v1/shorten', {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json',
+            'Content-Type': 'application/x-www-form-urlencoded',
         },
-        body: JSON.stringify({ url: inputUrl }),
+        body: new URLSearchParams({ url: inputUrl }),
     })
     .then(response => {
         if (!response.ok) {
@@ -23,13 +22,10 @@ document.getElementById('shortenBtn').addEventListener('click', function() {
         return response.json();
     })
     .then(data => {
-        console.log("API Response:", data); // Debugging API response
+        console.log("API Response:", data);
 
         if (data.result_url) {
-            // Display the shortened URL in the result div
             document.getElementById('result').innerText = `Shortened URL: ${data.result_url}`;
-            
-            // Show an alert with the shortened URL
             alert(`Shortened URL: ${data.result_url}`);
         } else {
             document.getElementById('result').innerText = "Failed to shorten the URL.";
